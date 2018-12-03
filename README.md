@@ -54,10 +54,14 @@
 
 三、为了满足项目开发，添加响应插件
 
-1.添加url-loader插件；url-loader插件相对于file-loader文件，可以针对特定内存的图片进行图片转base64处理，减少请求个数，但是内存会适量增大，本项目中针对20k一下的图片均采用base64方式嵌入，超过20k的使用图片请求的折中方法。使用file-laoder处理eot|svg|ttf|woff|woff2等文件；
+1. 添加url-loader插件；url-loader插件相对于file-loader文件，可以针对特定内存的图片进行图片转base64处理，减少请求个数，但是内存会适量增大，本项目中针对20k一下的图片均采用base64方式嵌入，超过20k的使用图片请求的折中方法。使用file-laoder处理eot|svg|ttf|woff|woff2等文件；
 
-2.添加html-webpack-plugin插件，他可以针对webpack入口文件，根据模板，生成一个新的html，还可以指定引入指定的入口文件，尤其当入口文件以hash值变化的时候，可以自动引入不同hash值的文件，以方便了每次上线更新，客户端无需手动去缓存；
+2. 添加html-webpack-plugin插件，他可以针对webpack入口文件，根据模板，生成一个新的html，还可以指定引入指定的入口文件，尤其当入口文件以hash值变化的时候，可以自动引入不同hash值的文件，以方便了每次上线更新，客户端无需手动去缓存；
+ 
+3. 添加rimraf，每次打包之前，删除原来打包的文件，添加"clear": "rimraf dist"的npm script标签；
 
-3.添加rimraf，每次打包之前，删除原来打包的文件，添加"clear": "rimraf dist"的npm script标签；
+4. 引入extract-text-webpack-plugin，在打包的时候，抽离css，可以保证在head加载css，body加载就是，满足一般先记在页面样式，在加载事件的设计要求；
+
+
 
 
