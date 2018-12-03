@@ -1,18 +1,3 @@
-# vueproject
-
-> vueproject
-
-## Build Setup
-
-``` bash
-# install dependencies
-npm install
-
-# serve with hot reload at localhost:8080
-npm run dev
-
-# build for production with minification
-npm run build
-```
-
-For detailed explanation on how things work, consult the [docs for vue-loader](http://vuejs.github.io/vue-loader).
+使用之前需要安装node，官网直接下载一路安装即可；
+全局安装vue脚手架，在npm，运行npm install --global vue-cli；
+在当前目录下运行vue init webpack-simple 你的项目名字，即可简单开始一个vue脚手架项目；
