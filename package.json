@@ -7,9 +7,16 @@
   "private": true,
   "scripts": {
     "dev": "cross-env NODE_ENV=development webpack-dev-server --open --hot",
-    "build": "cross-env NODE_ENV=production webpack --progress --hide-modules"
+    "clear": "rimraf dist",
+    "webpack": "cross-env NODE_ENV=production webpack --progress --display-modules",
+    "build:hide": "cross-env NODE_ENV=production webpack --progress --hide-modules",
+    "build:show": "npm run clear && npm run webpack"
   },
   "dependencies": {
+    "extract-text-webpack-plugin": "^3.0.2",
+    "html-webpack-plugin": "^3.2.0",
+    "rimraf": "^2.6.2",
+    "url-loader": "^1.1.2",
     "vue": "^2.5.11"
   },
   "browserslist": [
