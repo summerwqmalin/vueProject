@@ -6,6 +6,8 @@
 
 3.在当前目录下运行vue init webpack-simple 你的项目名字，即可简单开始一个vue脚手架项目；
 
+
+
 二、简单了解webpack-simple的安装依赖包
 
 1.package.json
@@ -30,8 +32,6 @@
 
 1.10npm script标签中npm run build 代替执行cross-env NODE_ENV=production webpack --progress --hide-modules命令语句，当当前环境是上线环境是，开启使用webpack处理文件，并打包成，隐藏打包的文件。
 
-
-
 2 webpack.config.js
 
 2.1 配置wepack文件，引入路径和webpack。var path = require('path');var webpack = require('webpack');
@@ -50,5 +50,14 @@
 
 2.8 devtool 主要设置打包文件使用何种模式连接彼此，调试环境的时候使用#eval-source-map模式，直接在打包文件后面连接，生产环境的时候，使用#source-map方便服务器调试；
 
+
+
+三、为了满足项目开发，添加响应插件
+
+1.添加url-loader插件；url-loader插件相对于file-loader文件，可以针对特定内存的图片进行图片转base64处理，减少请求个数，但是内存会适量增大，本项目中针对20k一下的图片均采用base64方式嵌入，超过20k的使用图片请求的折中方法。使用file-laoder处理eot|svg|ttf|woff|woff2等文件；
+
+2.添加html-webpack-plugin插件，他可以针对webpack入口文件，根据模板，生成一个新的html，还可以指定引入指定的入口文件，尤其当入口文件以hash值变化的时候，可以自动引入不同hash值的文件，以方便了每次上线更新，客户端无需手动去缓存；
+
+3.添加rimraf，每次打包之前，删除原来打包的文件；
 
 
