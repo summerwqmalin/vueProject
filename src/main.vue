@@ -1,8 +1,8 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
+    <img src="@/assets/logo.png">
     <h1>{{ msg }}</h1>
-    <h2>Essential Links</h2>
+    <h2 class="test">Essential Links</h2>
     <ul>
       <li><a href="https://vuejs.org" target="_blank">Core Docs</a></li>
       <li><a href="https://forum.vuejs.org" target="_blank">Forum</a></li>
@@ -56,5 +56,9 @@ li {
 
 a {
   color: #42b983;
+}
+.test {
+    display: flex;
+    vertical-align: middle;
 }
 </style>

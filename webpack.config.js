@@ -32,21 +32,23 @@ module.exports = {
       test: /\.css$/,
       use: ExtractTextPlugin.extract({
         fallback: "vue-style-loader",
-        use: ['css-loader']
+        use: ['css-loader', 'postcss-loader']
       })
     }, {
       test: /\.scss$/,
       use: [
         'vue-style-loader',
         'css-loader',
-        'sass-loader'
+        'sass-loader',
+        'postcss-loader'
       ],
     }, {
       test: /\.sass$/,
       use: [
         'vue-style-loader',
         'css-loader',
-        'sass-loader?indentedSyntax'
+        'sass-loader?indentedSyntax',
+        'postcss-loader'
       ],
     }, {
       test: /\.vue$/,
@@ -59,12 +61,14 @@ module.exports = {
           'scss': [
             'vue-style-loader',
             'css-loader',
-            'sass-loader'
+            'sass-loader',
+            'postcss-loader'
           ],
           'sass': [
             'vue-style-loader',
             'css-loader',
-            'sass-loader?indentedSyntax'
+            'sass-loader?indentedSyntax',
+            'postcss-loader'
           ]
         }
         // other vue-loader options go here
