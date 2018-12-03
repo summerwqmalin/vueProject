@@ -62,6 +62,6 @@
 
 4. 引入extract-text-webpack-plugin，在打包的时候，抽离css，可以保证在head加载css，body加载就是，满足一般先记在页面样式，在加载事件的设计要求；
 
-
+5.安装postcss-loader、autoprefixer，对样式文件进行预处理，添置浏览器兼容前缀；
 
 
