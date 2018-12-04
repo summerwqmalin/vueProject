@@ -10,16 +10,21 @@
     "clear": "rimraf dist",
     "webpack": "cross-env NODE_ENV=production webpack --progress --display-modules",
     "build:hide": "cross-env NODE_ENV=production webpack --progress --hide-modules",
-    "build:show": "npm run clear && npm run webpack"
+    "build:show": "npm run clear && npm run webpack",
+    "mock": "json-server --routes  mock/route.json mock/db.json --m mock/post-to-get.js --p 5000 --w mock/db.json"
   },
   "dependencies": {
     "autoprefixer": "^9.4.0",
+    "axios": "^0.18.0",
+    "element-ui": "^2.4.11",
     "extract-text-webpack-plugin": "^3.0.2",
     "html-webpack-plugin": "^3.2.0",
+    "js-cookie": "^2.2.0",
     "postcss-loader": "^3.0.0",
     "rimraf": "^2.6.2",
     "url-loader": "^1.1.2",
-    "vue": "^2.5.11"
+    "vue": "^2.5.11",
+    "vuex": "^3.0.1"
   },
   "browserslist": [
     "> 1%",
