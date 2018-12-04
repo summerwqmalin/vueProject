@@ -20,12 +20,20 @@
 </template>
 
 <script>
+import api from "@/api/axiosApi.js"
+
 export default {
   name: 'app',
   data () {
     return {
       msg: 'Welcome to Your Vue.js App'
     }
+  },
+  mounted(){
+    api.getFunDataFun()
+      .then(res => {
+        console.log(res)
+      })
   }
 }
 </script>
