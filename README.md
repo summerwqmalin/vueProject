@@ -64,4 +64,6 @@
 
 5.安装postcss-loader、autoprefixer，对样式文件进行预处理，添置浏览器兼容前缀；
 
+6.添加业务开发的插件，vuex，vue-router，element-ui，axios，vuex主要用来管理数据，在这里存储左侧菜单和权限，vue-router主要用来管理模块路由，element-uivue开发ui框架，axios是第三方请求依赖。
+
 
