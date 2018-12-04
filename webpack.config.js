@@ -2,6 +2,7 @@ var path = require('path')
 var webpack = require('webpack')
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var ExtractTextPlugin = require("extract-text-webpack-plugin");
+var proxyConfig = require('./proxyConfig');
 
 module.exports = {
   entry: {
@@ -105,7 +106,8 @@ module.exports = {
     historyApiFallback: true,
     noInfo: true,
     openPage: 'dist/main.html',
-    overlay: true
+    overlay: true,
+    proxy: proxyConfig.proxyList
   },
   performance: {
     hints: false

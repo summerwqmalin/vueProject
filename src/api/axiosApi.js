@@ -2,7 +2,8 @@
 import axios from 'axios'
 // 引入api
 import apiUrl from '@/api/apiUrl.js' //引入apiUrl
-
+// 设置响应头为异步请求
+axios.defaults.headers.post['X-Requested-With'] = 'XMLHttpRequest';
 // 封装axios
 export function fetch(url, params) {
   return new Promise((resolve, reject) => {
@@ -23,7 +24,7 @@ export function fetch(url, params) {
 //管理apiURL接口文件,如果想mock数据，请把开发环境的apis注释，打开mock环境，如果想直接访问测试地址，返回真是测试数据，请把mock环境注注释，打开apis
 var urlDev = "/apis/"; //开发环境
 var urlQa = '../'; //生产环境
-var urlmock = "../"; //mock数据
+var urlmock = '../'; //mock数据
 var url = ''; //定义当前url可以作为那个进行开发
 
 // 当mock数据存在时候，则mock数据，当mock数据不存在时候判断当前环境是生产环境，进行对应的请求

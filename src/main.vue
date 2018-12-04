@@ -21,7 +21,6 @@
 
 <script>
 import api from "@/api/axiosApi.js"
-
 export default {
   name: 'app',
   data () {
