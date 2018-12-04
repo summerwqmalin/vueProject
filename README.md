@@ -64,6 +64,15 @@
 
 5.安装postcss-loader、autoprefixer，对样式文件进行预处理，添置浏览器兼容前缀；
 
-6.添加业务开发的插件，vuex，vue-router，element-ui，axios，js-cookie。vuex主要用来管理数据，在这里存储左侧菜单和权限，vue-router主要用来管理模块路由，element-ui是vue开发ui框架，这里的element-ui没有使用按需加载，若使用按需加载要配置一下babelrc，axios是第三方请求依赖，js-cookie主要是在请求时候，存取后端token的cookie插件。
+6.添加业务开发的插件，vuex，vue-router，element-ui，axios，js-cookie，mockjs。vuex主要用来管理数据，在这里存储左侧菜单和权限，vue-router主要用来管理模块路由，element-ui是vue开发ui框架，这里的element-ui没有使用按需加载，若使用按需加载要配置一下babelrc，axios是第三方请求依赖，js-cookie主要是在请求时候，存取后端token的cookie插件，引入mockjs方面mock数据开发。
+
+
+四、工程架构设计
+
+1.封装axios，每次请求，统一在axios封装方法，这样方面后续维护，只要关于请求接口的，都可以在axiosApi.js维护。
+
+2.统一定义接口，这样方面后续维护，只要关于接口，都可以在apiUrl.js维护
+
+3.mock数据规则统一卸写在mockdata.js，方面管理模拟数据规则
 
 
