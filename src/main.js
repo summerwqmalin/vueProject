@@ -10,7 +10,11 @@ Vue.use(elementUI);
 // 引入mock数据
 require('@/../mock/mockData.js')
 
+// 引入路由
+import router from '@/router/route.js'
+
 new Vue({
 	el: '#app',
+	router,
 	render: h => h(main)
 })
