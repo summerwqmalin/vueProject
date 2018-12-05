@@ -2,13 +2,53 @@
 import axios from 'axios'
 // 引入api
 import apiUrl from '@/api/apiUrl.js' //引入apiUrl
-// 设置响应头为异步请求
-axios.defaults.headers.post['X-Requested-With'] = 'XMLHttpRequest';
+// 引入js-cookie
+import Cookies from 'js-cookie';
+// 引入路由
+import router from '@/router/route.js'
+
+
+// 创建axios实例
+const service = axios.create({
+  timeout: 1000 * 30,
+  // 允许跨域带token
+  withCredentials: true,
+  headers: {
+    'Content-Type': 'application/json; charset=utf-8',
+    'X-Requested-With': 'XMLHttpRequest' //请求为异步ajax请求
+  }
+})
+
+// request拦截器
+service.interceptors.request.use(
+  (config) => {
+    //在头部请求带上token，判断如果浏览器的cookie有token就带上token，如果没有，写死token
+    config.headers['token'] = Cookies.get('token') ?
+      Cookies.get('token') :
+      '74c8ffe4a59da108f03aa7afc77cc24e';
+    return config
+  },
+  (error) => {
+    return Promise.reject(error)
+  })
+
+// response拦截器
+service.interceptors.response.use(response => {
+  // 当浏览器的接口返回数据的data中code字段为401,说明token失效,那么强制返回登录页,删除cookie的token
+  if (response.data && response.data.code === 401) { // 401, token失效
+    Cookies.remove('token')
+    router.push('/login')
+  }
+  return response
+}, error => {
+  return Promise.reject(error)
+})
+
 // 封装axios
 export function fetch(url, params) {
   return new Promise((resolve, reject) => {
     params = JSON.stringify(params)
-    axios.post(url, params)
+    service.post(url, params)
       .then(response => {
         // Api--ok请求成功
         resolve(response.data);
@@ -35,13 +75,15 @@ if (urlmock) {
 }
 
 var apiURL = {
-  getFunData: url + "" + apiUrl.getfunData,
+  getMenuData: url + "" + apiUrl.getMenuData,
 }
+
+
 // 定义不同接口的方法
 export default {
   // 获取我的页面的后台数据
-  getFunDataFun() {
+  getMenuData() {
     // 进入定义方法,并发送请求
-    return fetch(apiURL.getFunData);
+    return fetch(apiURL.getMenuData);
   }
 }
