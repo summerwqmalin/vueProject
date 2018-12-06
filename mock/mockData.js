@@ -5,16 +5,82 @@ const Random = Mock.Random // Mock.Random 是一个工具类，用于生成各�
 
 
 // 定义左边菜单栏返回数据
-let data = [] // 用于接受生成数据的数组
-let isSuccess = Random.boolean;
-if (isSuccess) {
-	for (let i = 0; i < 10; i++) { // 可自定义生成的个数
-		let template = {
-			'menu': Random.ctitle(5, 10) //生成左侧菜单栏
-		}
-		data.push(template)
-	}
-}
+let data = [{
+	"subItem": [{
+		"icon": "el-icon-edit-outline",
+		"title": "分享点滴1-1",
+		"menuId": "1-1",
+		"subItem": [{
+			"icon": "el-icon-edit-outline",
+			"title": "分享点滴1-1-1",
+			"menuId": "1-1-1",
+			"subItem": []
+		}, {
+			"icon": "el-icon-edit-outline",
+			"title": "分享点滴1-1-2",
+			"menuId": "1-1-2",
+			"subItem": []
+		}]
+	}, {
+		"icon": "el-icon-edit-outline",
+		"title": "分享点滴1-2",
+		"menuId": "1-2",
+		"subItem": []
+	}],
+	"icon": "el-icon-edit-outline",
+	"title": "分享点滴",
+	"menuId": "1"
+}, {
+	"subItem": [{
+		"icon": "el-icon-search",
+		"title": "发现好友2-1",
+		"menuId": "2-1",
+		"subItem": []
+	}, {
+		"icon": "el-icon-search",
+		"title": "发现好友2-2",
+		"menuId": "2-2",
+		"subItem": []
+	}],
+	"icon": "el-icon-search",
+	"title": "发现好友",
+	"menuId": "2"
+}, {
+	"subItem": [{
+		"icon": "el-icon-menu",
+		"title": "分享汇总3-1",
+		"menuId": "3-1",
+		"subItem": [{
+			"icon": "el-icon-menu",
+			"title": "分享汇总3-1-1",
+			"menuId": "3-1-1",
+			"subItem": []
+		}, {
+			"icon": "el-icon-menu",
+			"title": "分享汇总3-1-2",
+			"menuId": "3-1-2",
+			"subItem": []
+		}]
+	}, {
+		"icon": "el-icon-menu",
+		"title": "分享汇总3-2",
+		"menuId": "3-2",
+		"subItem": []
+	}],
+	"icon": "el-icon-menu",
+	"title": "分享汇总",
+	"menuId": "3"
+}]
+// 三级菜单
+// let isSuccess = Random.boolean;
+// if (isSuccess) {
+// 	for (let i = 0; i < 10; i++) { // 可自定义生成的个数
+// 		let template = {
+// 			'name': Random.ctitle(5, 10) //生成左侧菜单栏
+// 		}
+// 		data.push(template)
+// 	}
+// }
 
 
 // 定义登录窗口返回数据
