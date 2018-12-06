@@ -31,7 +31,8 @@
 </template>
 
 <script>
-import api from '@/api/axiosApi.js'
+import api from '@/api/axiosApi.js'//引入封装方法
+import storage from '@/model/storage.js';// 引入自己封装的本地存储方法
 export default {
   data () {
     /*定义验证表单的规则*/ 
@@ -40,7 +41,7 @@ export default {
         callback(new Error('请输入密码'));
       } else if (/^[a-zA-Z0-9]{6,20}$/.test(value) == false ) {
         // 只可以输入英文字母数字1到10位数
-        callback(new Error('6至10位的英文字母或数字组合的密码'));
+        callback(new Error('6至20位的英文字母或数字组合的密码'));
       } else {
         callback();
       }
@@ -48,9 +49,9 @@ export default {
     var validateUser = (rule, value, callback) => {
       if (value === '') {
         callback(new Error('请输入账号'));
-      } else if (/^[a-zA-Z0-9_]{1,10}$/.test(value) == false ) {
+      } else if (/^[a-zA-Z0-9_]{6,20}$/.test(value) == false ) {
         // 只可以输入英文字母数字和下划线1到10位数
-        callback(new Error('请输入1至10位的英文字母、数字或下划线组合的用户名'));
+        callback(new Error('请输入6至20位的英文字母、数字或下划线组合的用户名'));
       } else {
         callback();
       }
@@ -77,10 +78,11 @@ export default {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           // 请求菜单并获取相关菜单的权限
-          api.getMenuData()
+          api.loginPermissData()
             .then(res => {
-              if(res.length != 0){
-                console.log(res)
+              if(res.allow){
+                storage.set("permission",res);//将登录的批转情况传到本地存储
+                this.$router.push("/mainpage");//登录成功后进入mainpage页面
               }else{
                 this.$notify.error({
                   title: '错误提示',

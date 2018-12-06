@@ -6,6 +6,7 @@ Vue.use(VueRouter);
 import login from '@/components/login.vue';
 import mainpage from '@/components/mainpage.vue';
 
+//设置固定路由
 const routes = [{
 	path: '/login',
 	component: login
