@@ -78,7 +78,7 @@ export default {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           // 请求菜单并获取相关菜单的权限
-          api.loginPermissData()
+          api.loginPermissData(this.loginForm)//this.loginForm为输入的用户名和密码
             .then(res => {
               if(res.allow){
                 storage.set("permission",res);//将登录的批转情况传到本地存储

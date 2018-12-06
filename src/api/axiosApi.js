@@ -90,10 +90,10 @@ var apiURL = {
 
 // 定义不同接口的方法名
 export default {
-  getMenuData() { // 定义左边菜单栏请求接口
-    return fetch(apiURL.getMenuData); // 进入定义方法,并发送请求
+  getMenuData(params) { // 定义左边菜单栏请求接口
+    return fetch(apiURL.getMenuData, params); // 进入定义方法,并发送请求
   },
-  loginPermissData() { // 定义登录请求接口
-    return fetch(apiURL.loginPermissData); // 进入定义方法,并发送请求
+  loginPermissData(params) { // 定义登录请求接口
+    return fetch(apiURL.loginPermissData, params); // 进入定义方法,并发送请求
   }
 }
