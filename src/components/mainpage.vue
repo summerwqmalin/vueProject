@@ -8,36 +8,46 @@
       	</el-row>
       </el-header>
       <el-container>
-        <el-aside>
-        	<el-menu default-active="1-2" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose" :collapse="isCollapse" v-for="(item,key) in menu" :key="key">
-        	  <el-submenu  v-if="item.subItem.length >0" :index="item.menuId">
-        	    <template slot="title">
-        	      <i :class="item.icon"></i>
-        	      <span slot="title">{{item.title}}</span>
-        	    </template>
-        	    <div v-for="(item,key) in item.subItem">
-        	    	<el-submenu :index="item.menuId" v-if="item.subItem.length >0" >
-        	    	  <span slot="title">{{item.title}}</span>
-        	    	  <el-menu-item :index="item.menuId" v-for="(item,key) in item.subItem" :key="key">{{item.title}}</el-menu-item>
-        	    	</el-submenu>
-        	    	<el-menu-item-group v-else :index="item.menuId">
-        	    	  <el-menu-item :index="item.menuId">{{item.title}}</el-menu-item>
-        	    	</el-menu-item-group>
-        	    </div>
-        	  </el-submenu>
-        	  <el-menu-item v-else :index="item.menuId">
-        	    <i :class="item.icon"></i>
-        	    <span slot="title">{{item.title}}</span>
-        	  </el-menu-item>
-        	</el-menu>
-        	<el-radio-group v-model="isCollapse" style="margin-bottom: 20px;">
+        <el-aside :width="isCollapse ? '78px' : '214px' ">
+          <div class="main-nav">
+              <el-menu default-active="1-2" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose" :collapse="isCollapse" v-for="(item,key) in menu" :key="key">
+                <el-submenu  v-if="item.subItem.length >0" :index="item.menuId">
+                  <template slot="title">
+                    <i :class="item.icon"></i>
+                    <span slot="title">{{item.title}}</span>
+                  </template>
+                  <div v-for="(item,key) in item.subItem">
+                    <el-submenu :index="item.menuId" v-if="item.subItem.length >0" >
+                      <span slot="title">{{item.title}}</span>
+                      <el-menu-item :index="item.menuId" v-for="(item,key) in item.subItem" :key="key">{{item.title}}</el-menu-item>
+                    </el-submenu>
+                    <el-menu-item-group v-else :index="item.menuId">
+                      <el-menu-item :index="item.menuId">{{item.title}}</el-menu-item>
+                    </el-menu-item-group>
+                  </div>
+                </el-submenu>
+                <el-menu-item v-else :index="item.menuId">
+                  <i :class="item.icon"></i>
+                  <span slot="title">{{item.title}}</span>
+                </el-menu-item>
+              </el-menu>
+              <div class="nav-btn"  @click="collapseBtn">
+                <span :class="isCollapse? 'el-icon-d-arrow-right':'el-icon-d-arrow-left'"></span>
+              </div>
+          </div>
+        	
+        	<!-- <el-radio-group v-model="isCollapse" style="margin-bottom: 20px;">
         	  <el-radio-button :label="false">展开</el-radio-button>
         	  <el-radio-button :label="true">收起</el-radio-button>
-        	</el-radio-group>
+        	</el-radio-group> -->
         </el-aside>
-        <el-main>Main</el-main>
+        <el-main>
+          <router-view></router-view>
+        </el-main>
       </el-container>
     </el-container>
+    <div @click = "push('/info')">info</div>
+    <div @click = "push('/share')">share</div>
   </div>
 </template>
 
@@ -99,6 +109,13 @@ export default {
     },
     handleClose(key, keyPath) {
       console.log(key, keyPath);
+    },
+    // 收起/展开 主菜单
+    collapseBtn: function () {
+      this.isCollapse = this.isCollapse ?  false : true;
+    },
+    push: function(params){
+      this.$router.push(params)
     }
   }
 }
@@ -110,8 +127,30 @@ export default {
 	color: #333;
 	min-height:100vh;
 }
+.main-nav{
+  position: relative;
+  height: 100%;
+  padding-right: 13px;
+  .el-menu-vertical-demo {
+    background-color: #fff;
+  }
+}
+.nav-btn{
+  position: absolute;
+  top: 50%;
+  right: 1px;
+  width: 12px;
+  height: 18px;
+  margin-top: -16px;
+  padding: 6px 0;
+  background-color: #fff;
+  border: 1px solid #e6e6e6;
+  border-left-width: 0;
+  border-radius: 0 3px 3px 0;
+  cursor: pointer;
+}
 .el-header {
-    background-color: #B3C0D1;
+    background-color: #fff;
     color: #333;
     text-align: left;
     line-height: 60px;
@@ -123,10 +162,10 @@ export default {
     	text-align:right;
     	line-height:60px;
     	text-align: right;
-    	color:#E9EEF3;
+    	color:#666;
  		:hover {
 			cursor:pointer;
-			color:#666;
+			color:#333;
  		}
     }
 }

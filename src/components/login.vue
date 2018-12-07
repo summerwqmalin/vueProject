@@ -82,7 +82,7 @@ export default {
             .then(res => {
               if(res.allow){
                 storage.set("permission",res);//将登录的批转情况传到本地存储
-                this.$router.push("/mainpage");//登录成功后进入mainpage页面
+                this.$router.push("/");//登录成功后进入mainpage页面
               }else{
                 storage.remove("permission");//删除登录信息
                 this.$notify.error({
