@@ -9,7 +9,7 @@
       </el-header>
       <el-container>
         <el-aside>
-        	<el-menu default-active="1-4-1" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose" :collapse="isCollapse" v-for="(item,key) in menuList" :key="key">
+        	<el-menu default-active="1-2" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose" :collapse="isCollapse" v-for="(item,key) in menu" :key="key">
         	  <el-submenu  v-if="item.subItem.length >0" :index="item.menuId">
         	    <template slot="title">
         	      <i :class="item.icon"></i>
@@ -44,20 +44,19 @@
 <script>
 import api from '@/api/axiosApi.js'//引入封装方法
 import storage from '@/model/storage.js';// 引入自己封装的本地存储方法
-import store from '@/vuex/store.js';//引入vuex
-import {mapActions} from "vuex";//引入vuex中action所有事件
+import {mapState,mapActions} from "vuex";//引入vuex中action、mapState所有事件
 export default {
   data () {
     return {
-    	isCollapse: true	
+    	isCollapse: true,
     }
   },
-  store:store,
   computed: {//用来实时追踪vuex数据的变化，可以直接绑定到视图中去
-    menuList() {
-      return this.$store.state.mainMenu.menu;
-    }
+    ...mapState({
+      menu:state => state.mainMenu.menu
+    })
   },
+
   mounted(){
   	let permission = storage.get("permission");
   	if(permission){//本地存储存在权限，那么正常判断是否有权限，如果没有，提示请先登录
@@ -65,12 +64,8 @@ export default {
   			// 请求菜单具体信息
   			api.getMenuData(permission.user)
   			  .then(res => {
-  			    console.log(res)
-  			    // 将数据存入store
-  			    this.$store.dispatch('addMenu',res);
-            // ...mapActions([
-            //     'setPermission'
-            // ])
+            // 将数据存入store
+            this.addMenu(res)
   			  })
   		}else{
   			this.$alert('无访问权限！', '温馨提示', {
@@ -92,6 +87,9 @@ export default {
   	}
   },
   methods: {
+    ...mapActions([
+      'addMenu'
+    ]),
     loginOut() {
     	this.$router.push("/login");
     	storage.remove('permission');
