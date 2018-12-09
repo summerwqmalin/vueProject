@@ -26,6 +26,7 @@ module.exports = {
         return getPath('css/[name].[contenthash].css').replace('css/js', 'css');
       },
       allChunks: true
+      
     })
   ],
   module: {
