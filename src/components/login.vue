@@ -32,7 +32,8 @@
 
 <script>
 import api from '@/api/axiosApi.js'//引入封装方法
-import storage from '@/model/storage.js';// 引入自己封装的本地存储方法
+import Cookies from 'js-cookie'; // 引入js-cookie
+import {mapState,mapActions} from "vuex";//引入vuex中action、mapState所有事件
 export default {
   data () {
     /*定义验证表单的规则*/ 
@@ -73,24 +74,18 @@ export default {
   },
   mounted(){
   },
+  computed: {//用来实时追踪vuex数据的变化，可以直接绑定到视图中去
+    
+  },
   methods: {
+    ...mapActions([
+      'userToken'
+    ]),
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           // 请求菜单并获取相关菜单的权限
-          api.loginPermissData(this.loginForm)//this.loginForm为输入的用户名和密码
-            .then(res => {
-              if(res.allow){
-                storage.set("permission",res);//将登录的批转情况传到本地存储
-                this.$router.push("/");//登录成功后进入mainpage页面
-              }else{
-                storage.remove("permission");//删除登录信息
-                this.$notify.error({
-                  title: '错误提示',
-                  message: '账号或密码错误哦！'
-                });
-              }
-            })
+          this.userToken(this.loginForm);
         } else {
           console.log('提交错误');
           return false;

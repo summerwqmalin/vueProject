@@ -10,7 +10,7 @@
       <el-container>
         <el-aside :width="isCollapse ? '78px' : '214px' ">
           <div class="main-nav">
-              <el-menu default-active="1-2" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose" :collapse="isCollapse" v-for="(item,key) in menu" :key="key">
+              <el-menu default-active="1-2" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose" :collapse="isCollapse" v-for="(item,key) in menu" :key="key" :router = "true">
                 <el-submenu  v-if="item.subItem.length >0" :index="item.menuId">
                   <template slot="title">
                     <i :class="item.icon"></i>
@@ -35,25 +35,19 @@
                 <span :class="isCollapse? 'el-icon-d-arrow-right':'el-icon-d-arrow-left'"></span>
               </div>
           </div>
-        	
-        	<!-- <el-radio-group v-model="isCollapse" style="margin-bottom: 20px;">
-        	  <el-radio-button :label="false">展开</el-radio-button>
-        	  <el-radio-button :label="true">收起</el-radio-button>
-        	</el-radio-group> -->
+      
         </el-aside>
         <el-main>
           <router-view></router-view>
         </el-main>
       </el-container>
     </el-container>
-    <div @click = "push('/info')">info</div>
-    <div @click = "push('/share')">share</div>
   </div>
 </template>
 
 <script>
 import api from '@/api/axiosApi.js'//引入封装方法
-import storage from '@/model/storage.js';// 引入自己封装的本地存储方法
+import Cookies from 'js-cookie'; // 引入js-cookie
 import {mapState,mapActions} from "vuex";//引入vuex中action、mapState所有事件
 export default {
   data () {
@@ -68,30 +62,15 @@ export default {
   },
 
   mounted(){
-  	let permission = storage.get("permission");
+  	let permission = Cookies.get("token");
   	if(permission){//本地存储存在权限，那么正常判断是否有权限，如果没有，提示请先登录
-  		if(permission.allow){
-  			// 请求菜单具体信息
-  			api.getMenuData(permission.user)
-  			  .then(res => {
-            // 将数据存入store
-            this.addMenu(res)
-  			  })
-  		}else{
-  			this.$alert('无访问权限！', '温馨提示', {
-  			    confirmButtonText: '确定',
-  			    callback: action => {
-  			      this.$router.push("/login");
-  			      storage.remove('permission');
-  			    }
-  			});
-  		}
+  		this.addMenu();
   	}else{
   		this.$alert('请先登录！', '温馨提示', {
   		    confirmButtonText: '确定',
   		    callback: action => {
   		      this.$router.push("/login");
-  		      storage.remove('permission');
+  		      Cookies.remove('token');
   		    }
   		});
   	}
@@ -102,7 +81,7 @@ export default {
     ]),
     loginOut() {
     	this.$router.push("/login");
-    	storage.remove('permission');
+    	Cookies.remove('token');
     },
     handleOpen(key, keyPath) {
       console.log(key, keyPath);

@@ -6,71 +6,38 @@ const Random = Mock.Random // Mock.Random 是一个工具类，用于生成各�
 
 // 定义左边菜单栏返回数据
 let data = [{
-	"subItem": [{
-		"icon": "el-icon-edit-outline",
-		"title": "分享点滴1-1",
-		"menuId": "1-1",
-		"subItem": [{
-			"icon": "el-icon-edit-outline",
-			"title": "分享点滴1-1-1",
-			"menuId": "1-1-1",
-			"subItem": []
-		}, {
-			"icon": "el-icon-edit-outline",
-			"title": "分享点滴1-1-2",
-			"menuId": "1-1-2",
-			"subItem": []
-		}]
-	}, {
-		"icon": "el-icon-edit-outline",
-		"title": "分享点滴1-2",
-		"menuId": "1-2",
-		"subItem": []
-	}],
+	"subItem": [],
 	"icon": "el-icon-edit-outline",
 	"title": "分享点滴",
-	"menuId": "1"
+	"menuId": "/share",
+	"meta": {
+		"requiresAuth": true 
+	}
 }, {
-	"subItem": [{
-		"icon": "el-icon-search",
-		"title": "发现好友2-1",
-		"menuId": "2-1",
-		"subItem": []
-	}, {
-		"icon": "el-icon-search",
-		"title": "发现好友2-2",
-		"menuId": "2-2",
-		"subItem": []
-	}],
+	"subItem": [],
 	"icon": "el-icon-search",
 	"title": "发现好友",
-	"menuId": "2"
+	"menuId": "/search",
+	"meta": {
+		"requiresAuth": true 
+	}
 }, {
-	"subItem": [{
-		"icon": "el-icon-menu",
-		"title": "分享汇总3-1",
-		"menuId": "3-1",
-		"subItem": [{
-			"icon": "el-icon-menu",
-			"title": "分享汇总3-1-1",
-			"menuId": "3-1-1",
-			"subItem": []
-		}, {
-			"icon": "el-icon-menu",
-			"title": "分享汇总3-1-2",
-			"menuId": "3-1-2",
-			"subItem": []
-		}]
-	}, {
-		"icon": "el-icon-menu",
-		"title": "分享汇总3-2",
-		"menuId": "3-2",
-		"subItem": []
-	}],
+	"subItem": [],
 	"icon": "el-icon-menu",
-	"title": "分享汇总",
-	"menuId": "3"
-}]
+	"title": "自我信息",
+	"menuId": "/info",
+	"meta": {
+		"requiresAuth": true 
+	}
+}, {
+	"subItem": [],
+	"icon": "el-icon-edit",
+	"title": "记录编辑",
+	"menuId": "/edit",
+	"meta": {
+		"requiresAuth": true 
+	}
+}];
 // 三级菜单
 // let isSuccess = Random.boolean;
 // if (isSuccess) {
@@ -87,11 +54,11 @@ let data = [{
 let loginPermissionData = {}; //定义登录窗口返回的数据，正确返回对象
 let permit = true; //定义是否允许通过
 if (permit) {
-	loginPermissionData.allow = true; //定义通过
-	loginPermissionData.user = Random.string("abcdefghijklmnopqrstuvwxyz", 6, 20); //返回用户名
+	loginPermissionData.token = Random.string("abcdefghijklmnopqrstuvwxyz", 6, 20); //定义token
+	loginPermissionData.state = "200"; //当前状态
 } else {
-	loginPermissionData.allow = false; //定义不通过
-	loginPermissionData.user = ""; //用户名为空
+	loginPermissionData.token = ""; //定义token
+	loginPermissionData.state = "401"; //返回不合格的当前状态
 }
 
 
