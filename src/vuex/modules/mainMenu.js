@@ -25,23 +25,12 @@ for (let key in asynComponent) {
 const state = {
 	menu: []
 }
-// 为每哥state定义一个触动的方法
+// 为每个state定义一个触动的方法
 const actions = {
-	addMenu(context) {
+	addMenu:(context) => {
 		api.getMenuData()
 			.then(res => {
                 // 比较两个权限数组，确定需要渲染那个权限
-				function compareMenu(userRouter = [], allRouter = []) {
-					var realRoutes = []
-					allRouter.forEach((v, i) => {
-						userRouter.forEach((item, index) => {
-							if (item.menuId === v.path) {
-								realRoutes.push(v)
-							}
-						})
-					})
-					return realRoutes
-				}
 				context.commit(types.ADD_MENU, res);
 				/*  动态添加路由 */
 				DynamicRoutes[0].children = compareMenu(res, allRouter);
@@ -74,6 +63,18 @@ const actions = {
 	}
 }
 
+//对比后端权限，以及前端模块，渲染最真实的左边菜单栏
+function compareMenu(userRouter = [], allRouter = []) {
+	var realRoutes = [];
+  	allRouter.forEach((v, i) => {
+		userRouter.forEach((item, index) => {
+			if (item.menuId === v.path) {
+				realRoutes.push(v)
+			}
+		})
+  	})
+  	return realRoutes
+}
 // 数据更改后得到getters
 const getters = {
 	getMenu: state => {
